@@ -1,3 +1,4 @@
+import 'package:antry_admin/components/entrylog_widget.dart';
 import 'package:flutter/material.dart';
 
 class EntryLogsFragment extends StatefulWidget {
@@ -10,10 +11,11 @@ class EntryLogsFragment extends StatefulWidget {
 class _EntryLogsFragmentState extends State<EntryLogsFragment> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text("entry logs page"),
-      ),
+    return Row(
+      children: [
+        Expanded(flex: 7, child: logsListWidget()),
+        Expanded(flex: 3, child: Container()),
+      ],
     );
   }
 }

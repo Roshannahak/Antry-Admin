@@ -18,7 +18,7 @@ class _DashBoardFragmentState extends State<DashBoardFragment> {
         Text(
           "DashBoard",
           style: TextStyle(
-              fontSize: 20.sp,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w700,
               color: Colors.black54),
         ),

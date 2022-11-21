@@ -1,3 +1,4 @@
+import 'package:antry_admin/components/studentpage_widgets.dart';
 import 'package:flutter/material.dart';
 
 class StudentsFragment extends StatefulWidget {
@@ -10,10 +11,6 @@ class StudentsFragment extends StatefulWidget {
 class _StudentsFragmentState extends State<StudentsFragment> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text("students page"),
-      ),
-    );
+    return studentListWidget();
   }
 }
