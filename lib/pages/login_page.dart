@@ -5,6 +5,11 @@ import 'package:antry_admin/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+enum UserType {
+  Admin,
+  SuperAdmin,
+}
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
 
@@ -13,6 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  UserType userType = UserType.Admin;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +43,51 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Image.asset(antryLogo, width: 180.w),
+                    SizedBox(height: 20.h),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () => setState(() {
+                                userType = UserType.Admin;
+                              }),
+                              child: Text(
+                                "ADMIN",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  letterSpacing: 2,
+                                  color: userType == UserType.Admin
+                                      ? AppColor.primaryColor
+                                      : Color.fromARGB(255, 177, 177, 177),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () => setState(() {
+                                userType = UserType.SuperAdmin;
+                              }),
+                              child: Text(
+                                "S-ADMIN",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    letterSpacing: 2,
+                                    fontSize: 14.sp,
+                                    color: userType == UserType.SuperAdmin
+                                        ? AppColor.primaryColor
+                                        : Color.fromARGB(255, 177, 177, 177),
+                                    fontWeight: FontWeight.w900),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                     SizedBox(height: 20.h),
                     TextFormField(
                       keyboardType: TextInputType.number,

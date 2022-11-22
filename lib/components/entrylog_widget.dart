@@ -73,7 +73,7 @@ Widget logsListWidget() {
           child: ListView.separated(
               padding: EdgeInsets.only(top: 5),
               itemBuilder: (context, index) {
-                return logViewHolder(
+                return LogViewHolder(
                     date: "19-11-2022",
                     name: "Roshan Nahak",
                     branch: "CSE",

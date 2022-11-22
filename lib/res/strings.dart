@@ -1,1 +1,1 @@
-List<String> tabs = ["Dashboard", "Entry Logs", "Students", "Profile", "Logout"];
+List<String> tabs = ["Dashboard", "Entry Logs", "Students", "Profile"];

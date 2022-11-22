@@ -1,4 +1,7 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../res/image.dart';
 
@@ -29,7 +32,28 @@ AppBar navigationBar() => AppBar(
                 Text(
                   "Roshan Nahak",
                   style: TextStyle(color: Colors.grey, fontSize: 16),
-                )
+                ),
+                PopupMenuButton(
+                    padding: EdgeInsets.zero,
+                    icon: Icon(Icons.more_vert, color: Colors.black54),
+                    splashRadius: 16,
+                    iconSize: 20,
+                    itemBuilder: (context) => [
+                          PopupMenuItem(
+                            onTap: () {},
+                            height: 30.h,
+                            child: Row(
+                              children: [
+                                Icon(Icons.exit_to_app,
+                                    color: Colors.black54, size: 20.r),
+                                SizedBox(width: 5.w),
+                                Text("Logout",
+                                    style: TextStyle(
+                                        fontSize: 14.sp, color: Colors.black54))
+                              ],
+                            ),
+                          )
+                        ])
               ],
             ))
       ],
