@@ -1,11 +1,13 @@
 import 'dart:js';
 
+import 'package:antry_admin/components/style.dart';
+import 'package:antry_admin/res/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../res/image.dart';
 
-AppBar navigationBar() => AppBar(
+AppBar navigationBar({required bool isadmin}) => AppBar(
       shadowColor: Colors.transparent,
       backgroundColor: Colors.white,
       leadingWidth: 160,
@@ -19,24 +21,32 @@ AppBar navigationBar() => AppBar(
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ClipOval(
-                  child: Container(
-                      height: 30,
-                      width: 30,
-                      child: Image.asset(
-                        userIcon,
-                        fit: BoxFit.cover,
-                      )),
-                ),
-                SizedBox(width: 10),
+                Container(
+                    height: 18,
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    decoration: BoxDecoration(
+                        color: AppColor.primaryColor,
+                        borderRadius: BorderRadius.circular(3)),
+                    child: Center(
+                      child: isadmin
+                          ? Text(
+                              "ADMIN",
+                              style: userTagTextStyle(),
+                            )
+                          : Text(
+                              "SUPER ADMIN",
+                              style: userTagTextStyle(),
+                            ),
+                    )),
+                SizedBox(width: 16),
                 Text(
                   "Roshan Nahak",
-                  style: TextStyle(color: Colors.grey, fontSize: 16),
+                  style: TextStyle(color: Colors.black87, fontSize: 16),
                 ),
                 PopupMenuButton(
                     padding: EdgeInsets.zero,
-                    icon: Icon(Icons.more_vert, color: Colors.black54),
-                    splashRadius: 16,
+                    icon: Icon(Icons.arrow_drop_down, color: Colors.black87),
+                    splashRadius: 14,
                     iconSize: 20,
                     itemBuilder: (context) => [
                           PopupMenuItem(

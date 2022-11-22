@@ -35,18 +35,18 @@ class _HomePageState extends State<HomePage> {
     ProfileFragment(),
   ];
 
-  bool admin = false;
+  bool isAdmin = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: navigationBar(),
+      appBar: navigationBar(isadmin: isAdmin),
       body: Row(
         children: [
           Container(
             width: 200,
             padding: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(color: Colors.white),
-            child: admin
+            child: isAdmin
                 ? AdminSideNavItems(
                     tabs: adminTabs,
                     selectedIndex: _selectedIndex,
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
               flex: 9,
               child: Container(
                   padding: EdgeInsets.only(left: 30, right: 30, top: 20),
-                  child: admin
+                  child: isAdmin
                       ? adminFragment[_selectedIndex]
                       : superAdminFragment[_selectedIndex]))
         ],

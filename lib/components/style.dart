@@ -18,8 +18,10 @@ TextStyle tableHeaderTextStyle() => TextStyle(
     color: Colors.black,
     fontWeight: FontWeight.w600);
 
-    TextStyle tableRowTextStyle() => TextStyle(
+TextStyle tableRowTextStyle() => TextStyle(
     fontSize: 14.sp,
     overflow: TextOverflow.ellipsis,
     color: Colors.black87,
     fontWeight: FontWeight.w400);
+
+TextStyle userTagTextStyle() => TextStyle(color: Colors.white, fontSize: 12);
