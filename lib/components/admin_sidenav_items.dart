@@ -8,8 +8,8 @@ See also: ValueSetter, for callbacks that report that a value has been set.
 */
 typedef ValueChanged<T> = void Function(T index);
 
-class SideNavItems extends StatefulWidget {
-  SideNavItems(
+class AdminSideNavItems extends StatefulWidget {
+  AdminSideNavItems(
       {Key? key,
       required this.tabs,
       this.selectedIndex = 0,
@@ -23,10 +23,10 @@ class SideNavItems extends StatefulWidget {
   final ValueChanged<int>? onTabSelected;
 
   @override
-  State<SideNavItems> createState() => _SideNavItemsState();
+  State<AdminSideNavItems> createState() => _SideNavItemsState();
 }
 
-class _SideNavItemsState extends State<SideNavItems> {
+class _SideNavItemsState extends State<AdminSideNavItems> {
   @override
   Widget build(BuildContext context) {
     return Column(
