@@ -1,3 +1,4 @@
+import 'package:antry_admin/components/super%20admin/admin_widget.dart';
 import 'package:flutter/material.dart';
 
 class AdminFragment extends StatefulWidget {
@@ -10,10 +11,6 @@ class AdminFragment extends StatefulWidget {
 class _AdminFragmentState extends State<AdminFragment> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text("admin page"),
-      ),
-    );
+    return adminListWidget();
   }
 }

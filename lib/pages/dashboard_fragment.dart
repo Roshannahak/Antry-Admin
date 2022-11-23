@@ -41,7 +41,11 @@ class _DashBoardFragmentState extends State<DashBoardFragment> {
             DetailCardViewholder(
                 cardTitle: "Checked-In",
                 data: 6,
-                icon: Icons.assignment_turned_in)
+                icon: Icons.assignment_turned_in),
+            DetailCardViewholder(
+                cardTitle: "Admin Access",
+                data: 3,
+                icon: Icons.admin_panel_settings)
           ],
         )
       ],

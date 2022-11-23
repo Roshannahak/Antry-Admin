@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 3;
   List<Widget> adminFragment = [
     DashBoardFragment(),
     EntryLogsFragment(),
