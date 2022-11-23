@@ -14,7 +14,8 @@ class _EntryLogsFragmentState extends State<EntryLogsFragment> {
     return Row(
       children: [
         Expanded(flex: 7, child: logsListWidget()),
-        Expanded(flex: 3, child: Container()),
+        SizedBox(width: 14),
+        Expanded(flex: 3, child: logDetailsWidget()),
       ],
     );
   }
