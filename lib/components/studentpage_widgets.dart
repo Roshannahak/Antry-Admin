@@ -10,13 +10,31 @@ Widget studentListWidget() => Container(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 14, top: 14, bottom: 14),
-            child: Text(
-              "Registered Students",
-              style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black54),
+            padding: EdgeInsets.only(left: 14, right: 14, top: 14, bottom: 14),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    "Registered Students",
+                    style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black54),
+                  ),
+                ),
+                SizedBox(
+                  height: 26,
+                  width: 26,
+                  child: IconButton(
+                    onPressed: () {},
+                    tooltip: "Refresh",
+                    splashRadius: 20,
+                    padding: EdgeInsets.zero,
+                    icon: Icon(Icons.refresh, color: Colors.black87),
+                    iconSize: 24,
+                  ),
+                )
+              ],
             ),
           ),
           Container(

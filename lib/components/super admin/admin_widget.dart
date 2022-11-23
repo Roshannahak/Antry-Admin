@@ -28,14 +28,19 @@ Widget adminListWidget() => Container(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      IconButton(
-                        onPressed: () {},
-                        tooltip: "Refresh",
-                        icon: Icon(Icons.refresh, color: Colors.black87),
-                        splashColor: Colors.grey,
-                        iconSize: 24,
+                      SizedBox(
+                        height: 26,
+                        width: 26,
+                        child: IconButton(
+                          onPressed: () {},
+                          tooltip: "Refresh",
+                          splashRadius: 20,
+                          padding: EdgeInsets.zero,
+                          icon: Icon(Icons.refresh, color: Colors.black87),
+                          iconSize: 24,
+                        ),
                       ),
-                      SizedBox(width: 5),
+                      SizedBox(width: 10),
                       ElevatedButton.icon(
                           onPressed: () {},
                           style: ButtonStyle(
