@@ -121,16 +121,12 @@ Widget logDetailsWidget() {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            children: [
-              Text(
-                "Log Details",
-                style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black54),
-              ),
-            ],
+          Text(
+            "Log Details",
+            style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w700,
+                color: Colors.black54),
           ),
           SizedBox(height: 20),
 

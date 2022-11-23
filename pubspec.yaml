@@ -38,6 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   url_strategy: ^0.2.0
   flutter_screenutil: ^5.6.0
+  qr_flutter: ^4.0.0
+  pdf: ^3.6.4
 
 dev_dependencies:
   flutter_test:
