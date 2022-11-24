@@ -9,7 +9,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 Future<MemoryImage> convertWidgetToImage() async {
   final image =
       await QrPainter(data: "data", gapless: true, version: QrVersions.auto)
-          .toImage(400);
+          .toImage(300);
   final byteArray = await image.toByteData(format: ImageByteFormat.png);
   final unit8List = byteArray!.buffer.asUint8List();
   return MemoryImage(unit8List);
