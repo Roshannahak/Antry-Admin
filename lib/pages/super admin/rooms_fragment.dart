@@ -13,7 +13,7 @@ class _RoomsFragmentState extends State<RoomsFragment> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(flex: 6, child: roomListWidget()),
+        Expanded(flex: 6, child: roomListWidget(context)),
         SizedBox(width: 14),
         Expanded(flex: 4, child: qrPrintPreview()),
       ],
