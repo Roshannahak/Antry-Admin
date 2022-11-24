@@ -11,6 +11,6 @@ class AdminFragment extends StatefulWidget {
 class _AdminFragmentState extends State<AdminFragment> {
   @override
   Widget build(BuildContext context) {
-    return adminListWidget();
+    return adminListWidget(context);
   }
 }

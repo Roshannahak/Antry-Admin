@@ -1,9 +1,116 @@
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/super%20admin/adminlist_viewholder.dart';
+import 'package:antry_admin/res/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget adminListWidget() => Container(
+addAdminDialog(BuildContext context) {
+  Dialog dialog = Dialog(
+    backgroundColor: Colors.white,
+    child: Container(
+      width: 500.w,
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(primary: AppColor.primaryColor)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Admin Registration",
+                  style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600),
+                ),
+                SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: IconButton(
+                      splashRadius: 16,
+                      padding: EdgeInsets.zero,
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(Icons.close_rounded,
+                          size: 24, color: Colors.black87)),
+                )
+              ],
+            ),
+            SizedBox(height: 20),
+            TextFormField(
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.text,
+              maxLines: 1,
+              validator: (value) {
+                if (value!.isEmpty) return "required";
+                return null;
+              },
+              cursorColor: Colors.black,
+              decoration: fieldInputDecoration(label: "FullName"),
+            ),
+            SizedBox(height: 18),
+            Row(
+              children: [
+                Expanded(
+                    flex: 3,
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      maxLines: 1,
+                      validator: (value) {
+                        if (value!.isEmpty) return "required";
+                        return null;
+                      },
+                      cursorColor: Colors.black,
+                      decoration: fieldInputDecoration(
+                          label: "Emp Id", hintText: "Ex: 123"),
+                    )),
+                SizedBox(width: 15),
+                Expanded(
+                    flex: 7,
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.text,
+                      maxLines: 1,
+                      validator: (value) {
+                        if (value!.isEmpty) return "required";
+                        return null;
+                      },
+                      cursorColor: Colors.black,
+                      decoration: fieldInputDecoration(label: "Department"),
+                    ))
+              ],
+            ),
+            SizedBox(height: 18),
+            TextFormField(
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.number,
+              maxLines: 1,
+              validator: (value) {
+                if (value!.isEmpty) return "required";
+                return null;
+              },
+              maxLength: 10,
+              cursorColor: Colors.black,
+              decoration: fieldInputDecoration(label: "Contact No"),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+                onPressed: () {},
+                child: Text("Submit"),
+                style: primaryButtonStyle()),
+            SizedBox(height: 10)
+          ],
+        ),
+      ),
+    ),
+  );
+  showDialog(context: context, builder: (context) => dialog);
+}
+
+Widget adminListWidget(BuildContext context) => Container(
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(7)),
       child: Column(
@@ -42,7 +149,7 @@ Widget adminListWidget() => Container(
                       ),
                       SizedBox(width: 10),
                       ElevatedButton.icon(
-                          onPressed: () {},
+                          onPressed: () => addAdminDialog(context),
                           style: ButtonStyle(
                               padding: MaterialStateProperty.all(
                                   EdgeInsets.symmetric(horizontal: 10)),
