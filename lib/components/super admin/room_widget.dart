@@ -1,7 +1,9 @@
 import 'dart:html' as html;
+import 'dart:ui';
 
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/super%20admin/roomlist_viewholder.dart';
+import 'package:antry_admin/controller/generate_pdf.dart';
 import 'package:antry_admin/res/app_colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -161,7 +163,7 @@ Widget qrPrintPreview() => Align(
             Divider(thickness: 1, color: Colors.grey[350]),
             SizedBox(height: 20),
             ElevatedButton.icon(
-                onPressed: () => printDocument(),
+                onPressed: () => generateQrcodePdf(),
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(AppColor.primaryColor),
@@ -174,27 +176,3 @@ Widget qrPrintPreview() => Align(
         ),
       ),
     );
-
-//test method for printing document
-void printDocument() async {
-  final pdf = pw.Document();
-
-  pdf.addPage(pw.Page(
-    pageFormat: PdfPageFormat.a4,
-    build: (context) {
-      return pw.Center(child: pw.Text("hello world"));
-    },
-  ));
-
-  Uint8List pdfInByte = await pdf.save();
-
-  //create blob and link from byte
-  final blob = html.Blob([pdfInByte], 'application/pdf');
-  final url = html.Url.createObjectUrlFromBlob(blob);
-  final anchor = html.document.createElement('a') as html.AnchorElement
-    ..href = url
-    ..style.display = 'none'
-    ..download = 'qrcode.pdf';
-  html.document.body?.children.add(anchor);
-  anchor.click();
-}
