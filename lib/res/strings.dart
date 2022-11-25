@@ -1,9 +1,18 @@
-List<String> adminTabs = ["Dashboard", "Entry Logs", "Students", "Profile"];
+List<String> adminTabs = [
+  "Dashboard",
+  "Student Logs",
+  "Visitor Logs",
+  "Students",
+  "Visitor",
+  "My Profile"
+];
 List<String> superAdminTabs = [
   "Dashboard",
-  "Entry Logs",
+  "Student Logs",
+  "Visitor Logs",
   "Students",
+  "Visitor",
   "Admin",
   "Rooms",
-  "Profile"
+  "My Profile"
 ];

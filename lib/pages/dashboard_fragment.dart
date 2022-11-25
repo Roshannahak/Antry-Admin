@@ -45,7 +45,9 @@ class _DashBoardFragmentState extends State<DashBoardFragment> {
             DetailCardViewholder(
                 cardTitle: "Admin Access",
                 data: 3,
-                icon: Icons.admin_panel_settings)
+                icon: Icons.admin_panel_settings),
+            DetailCardViewholder(
+                cardTitle: "Total Visitors", data: 34, icon: Icons.group_sharp)
           ],
         )
       ],

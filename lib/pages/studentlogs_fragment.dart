@@ -1,14 +1,14 @@
 import 'package:antry_admin/components/entrylog_widget.dart';
 import 'package:flutter/material.dart';
 
-class EntryLogsFragment extends StatefulWidget {
-  EntryLogsFragment({Key? key}) : super(key: key);
+class StudentLogsFragment extends StatefulWidget {
+  StudentLogsFragment({Key? key}) : super(key: key);
 
   @override
-  State<EntryLogsFragment> createState() => _EntryLogsFragmentState();
+  State<StudentLogsFragment> createState() => _StudentLogsFragmentState();
 }
 
-class _EntryLogsFragmentState extends State<EntryLogsFragment> {
+class _StudentLogsFragmentState extends State<StudentLogsFragment> {
   @override
   Widget build(BuildContext context) {
     return Row(

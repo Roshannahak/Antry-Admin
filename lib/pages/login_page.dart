@@ -44,51 +44,6 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Image.asset(antryLogo, width: 180.w),
                     SizedBox(height: 20.h),
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () => setState(() {
-                                userType = UserType.Admin;
-                              }),
-                              child: Text(
-                                "ADMIN",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  letterSpacing: 2,
-                                  color: userType == UserType.Admin
-                                      ? AppColor.primaryColor
-                                      : Color.fromARGB(255, 177, 177, 177),
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () => setState(() {
-                                userType = UserType.SuperAdmin;
-                              }),
-                              child: Text(
-                                "S-ADMIN",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    letterSpacing: 2,
-                                    fontSize: 14.sp,
-                                    color: userType == UserType.SuperAdmin
-                                        ? AppColor.primaryColor
-                                        : Color.fromARGB(255, 177, 177, 177),
-                                    fontWeight: FontWeight.w900),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 20.h),
                     TextFormField(
                       keyboardType: TextInputType.number,
                       maxLines: 1,

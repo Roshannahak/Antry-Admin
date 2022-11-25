@@ -2,11 +2,13 @@ import 'package:antry_admin/components/navigationbar.dart';
 import 'package:antry_admin/components/admin_sidenav_items.dart';
 import 'package:antry_admin/components/super%20admin/sAdmin_sidenav_items%20copy.dart';
 import 'package:antry_admin/pages/dashboard_fragment.dart';
-import 'package:antry_admin/pages/entry_logs_fragment.dart';
+import 'package:antry_admin/pages/studentlogs_fragment.dart';
 import 'package:antry_admin/pages/profile_fragment.dart';
 import 'package:antry_admin/pages/students_fragment.dart';
 import 'package:antry_admin/pages/super%20admin/admin_fragment.dart';
 import 'package:antry_admin/pages/super%20admin/rooms_fragment.dart';
+import 'package:antry_admin/pages/visitor_fragment.dart';
+import 'package:antry_admin/pages/visitorlogs_fragment.dart';
 import 'package:antry_admin/res/strings.dart';
 import 'package:flutter/material.dart';
 
@@ -21,15 +23,19 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 3;
   List<Widget> adminFragment = [
     DashBoardFragment(),
-    EntryLogsFragment(),
+    StudentLogsFragment(),
+    VisitorLogsFragment(),
     StudentsFragment(),
+    VisitorFragment(),
     ProfileFragment(),
   ];
 
   List<Widget> superAdminFragment = [
     DashBoardFragment(),
-    EntryLogsFragment(),
+    StudentLogsFragment(),
+    VisitorLogsFragment(),
     StudentsFragment(),
+    VisitorFragment(),
     AdminFragment(),
     RoomsFragment(),
     ProfileFragment(),
