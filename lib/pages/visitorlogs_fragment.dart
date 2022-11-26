@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../components/visitorlog_widget.dart';
+
 class VisitorLogsFragment extends StatefulWidget {
   VisitorLogsFragment({Key? key}) : super(key: key);
 
@@ -11,10 +13,12 @@ class VisitorLogsFragment extends StatefulWidget {
 class _VisitorLogsFragmentState extends State<VisitorLogsFragment> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text("visitor logs"),
-      ),
+    return Row(
+      children: [
+        Expanded(flex: 7, child: visitorLogListWidget()),
+        SizedBox(width: 14),
+        Expanded(flex: 3, child: visitorLogDetailsWidget()),
+      ],
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:antry_admin/components/entrylog_widget.dart';
+import 'package:antry_admin/components/studentlog_widget.dart';
 import 'package:flutter/material.dart';
 
 class StudentLogsFragment extends StatefulWidget {
@@ -13,9 +13,9 @@ class _StudentLogsFragmentState extends State<StudentLogsFragment> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(flex: 7, child: logsListWidget()),
+        Expanded(flex: 7, child: studentLogListWidget()),
         SizedBox(width: 14),
-        Expanded(flex: 3, child: logDetailsWidget()),
+        Expanded(flex: 3, child: studentLogDetailsWidget()),
       ],
     );
   }

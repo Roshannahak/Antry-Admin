@@ -1,11 +1,11 @@
-import 'package:antry_admin/components/log_viewholder.dart';
+import 'package:antry_admin/components/studentlog_viewholder.dart';
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/res/app_colors.dart';
 import 'package:antry_admin/res/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget logsListWidget() {
+Widget studentLogListWidget() {
   return Container(
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(7)),
@@ -18,7 +18,7 @@ Widget logsListWidget() {
             children: [
               Expanded(
                 child: Text(
-                  "Entry Logs",
+                  "Students Entry Logs",
                   style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w700,
@@ -93,7 +93,7 @@ Widget logsListWidget() {
           child: ListView.separated(
               padding: EdgeInsets.only(top: 5),
               itemBuilder: (context, index) {
-                return LogViewHolder(
+                return StudentLogViewHolder(
                     date: "19-11-2022",
                     name: "Roshan Nahak",
                     branch: "CSE",
@@ -110,7 +110,7 @@ Widget logsListWidget() {
   );
 }
 
-Widget logDetailsWidget() {
+Widget studentLogDetailsWidget() {
   return Align(
     alignment: Alignment.topCenter,
     child: Container(
@@ -195,7 +195,7 @@ Widget logDetailsWidget() {
             style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Colors.black54),
+                color: Colors.black87),
           ),
           SizedBox(height: 10),
           Container(
@@ -279,6 +279,35 @@ Widget logDetailsWidget() {
                         ))
                   ],
                 ),
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+          //visit reason section
+          Container(
+            width: 1.sw,
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            decoration: BoxDecoration(
+                color: AppColor.hoverGrey,
+                borderRadius: BorderRadius.circular(5)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Reason for visit",
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+                  maxLines: 4,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 14, color: Colors.black87),
+                )
               ],
             ),
           )

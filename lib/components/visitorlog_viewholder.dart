@@ -2,12 +2,12 @@ import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/res/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class LogViewHolder extends StatefulWidget {
-  LogViewHolder(
+class VisitorLogViewHolder extends StatefulWidget {
+  VisitorLogViewHolder(
       {Key? key,
       required this.date,
       required this.name,
-      required this.branch,
+      required this.city,
       required this.roomNo,
       required this.inTime,
       required this.outTime})
@@ -15,16 +15,16 @@ class LogViewHolder extends StatefulWidget {
 
   final String date;
   final String name;
-  final String branch;
+  final String city;
   final String roomNo;
   final String inTime;
   final String outTime;
 
   @override
-  State<LogViewHolder> createState() => _LogViewHolderState();
+  State<VisitorLogViewHolder> createState() => _LogViewHolderState();
 }
 
-class _LogViewHolderState extends State<LogViewHolder> {
+class _LogViewHolderState extends State<VisitorLogViewHolder> {
   bool isHovered = false;
   onEntered(bool isHovered) {
     setState(() {
@@ -59,7 +59,7 @@ class _LogViewHolderState extends State<LogViewHolder> {
               ),
               Expanded(
                 child: Text(
-                  widget.branch,
+                  widget.city,
                   style: tableRowTextStyle(),
                 ),
               ),

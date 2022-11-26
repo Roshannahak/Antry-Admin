@@ -1,4 +1,4 @@
-import 'package:antry_admin/components/studentpage_widgets.dart';
+import 'package:antry_admin/components/studentfragment_widgets.dart';
 import 'package:flutter/material.dart';
 
 class StudentsFragment extends StatefulWidget {
