@@ -1,9 +1,15 @@
 import 'package:antry_admin/components/studentlist_viewholder.dart';
 import 'package:antry_admin/components/style.dart';
+import 'package:antry_admin/controller/studentlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget studentListWidget() => Container(
+import '../model/studentlist_model.dart';
+
+Widget studentListWidget(
+        {required StudentListProvider provider,
+        required BuildContext context}) =>
+    Container(
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(7)),
       child: Column(
@@ -92,17 +98,18 @@ Widget studentListWidget() => Container(
             child: ListView.separated(
                 padding: EdgeInsets.only(top: 5),
                 itemBuilder: (context, index) {
+                  Student student = provider.getStudentList[index];
                   return StudentViewHolder(
-                      rollno: "01UG18020029",
-                      name: "Roshan Nahak",
-                      branch: "CSE",
-                      course: "B.Tech",
-                      semester: "8",
-                      contactno: "8319312145");
+                      rollno: student.rollno!,
+                      name: student.fullname!,
+                      branch: student.branch!,
+                      course: student.course!,
+                      semester: student.semester!,
+                      contactno: student.contactno!);
                 },
                 separatorBuilder: (context, index) => Divider(
                     color: Color.fromARGB(255, 218, 218, 218), height: 1),
-                itemCount: 20),
+                itemCount: provider.studentCount),
           )
         ],
       ),

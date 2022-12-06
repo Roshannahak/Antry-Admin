@@ -1,10 +1,14 @@
-
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/visitor_viewholder.dart';
+import 'package:antry_admin/controller/visitorlist_provider.dart';
+import 'package:antry_admin/model/visitorlist_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget visitorListWidget() => Container(
+Widget visitorListWidget(
+        {required VisitorListProvider provider,
+        required BuildContext context}) =>
+    Container(
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(7)),
       child: Column(
@@ -71,14 +75,15 @@ Widget visitorListWidget() => Container(
             child: ListView.separated(
                 padding: EdgeInsets.only(top: 5),
                 itemBuilder: (context, index) {
+                  Visitor visitor = provider.getVisitorList[index];
                   return VisitorViewHolder(
-                      name: "Roshan Nahak",
-                      city: "mumbai",
-                      contactno: "8319312145");
+                      name: visitor.fullname!,
+                      city: visitor.city!,
+                      contactno: visitor.contactno!);
                 },
                 separatorBuilder: (context, index) => Divider(
                     color: Color.fromARGB(255, 218, 218, 218), height: 1),
-                itemCount: 20),
+                itemCount: provider.visitorCount),
           )
         ],
       ),

@@ -1,5 +1,7 @@
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/super%20admin/adminlist_viewholder.dart';
+import 'package:antry_admin/controller/adminlist_provider.dart';
+import 'package:antry_admin/model/adminlist_model.dart';
 import 'package:antry_admin/res/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -110,7 +112,9 @@ addAdminDialog(BuildContext context) {
   showDialog(context: context, builder: (context) => dialog);
 }
 
-Widget adminListWidget(BuildContext context) => Container(
+Widget adminListWidget(
+        {required BuildContext context, required AdminListProvider provider}) =>
+    Container(
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(7)),
       child: Column(
@@ -208,15 +212,16 @@ Widget adminListWidget(BuildContext context) => Container(
             child: ListView.separated(
                 padding: EdgeInsets.only(top: 5),
                 itemBuilder: (context, index) {
+                  Admin admin = provider.getAdminList[index];
                   return AdminViewHolder(
-                      empid: "469",
-                      name: "Roshan Nahak",
-                      department: "CSE",
-                      contactno: "8319312145");
+                      empid: admin.empid!,
+                      name: admin.fullname!,
+                      department: admin.department!,
+                      contactno: admin.contactno!);
                 },
                 separatorBuilder: (context, index) => Divider(
                     color: Color.fromARGB(255, 218, 218, 218), height: 1),
-                itemCount: 5),
+                itemCount: provider.adminCount),
           )
         ],
       ),

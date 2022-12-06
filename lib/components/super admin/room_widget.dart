@@ -1,6 +1,8 @@
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/super%20admin/roomlist_viewholder.dart';
 import 'package:antry_admin/controller/generate_pdf.dart';
+import 'package:antry_admin/controller/roomlist_provider.dart';
+import 'package:antry_admin/model/roomlist_model.dart';
 import 'package:antry_admin/res/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,7 +68,8 @@ createRoomDialog(BuildContext context) {
                         return null;
                       },
                       cursorColor: Colors.black,
-                      decoration: fieldInputDecoration(label: "Room No", hintText: "Ex: G-09"),
+                      decoration: fieldInputDecoration(
+                          label: "Room No", hintText: "Ex: G-09"),
                     )),
                 SizedBox(width: 15),
                 Expanded(
@@ -98,7 +101,9 @@ createRoomDialog(BuildContext context) {
   showDialog(context: context, builder: (context) => dialog);
 }
 
-Widget roomListWidget(BuildContext context) => Container(
+Widget roomListWidget(
+        {required BuildContext context, required RoomListProvider provider}) =>
+    Container(
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(7)),
       child: Column(
@@ -187,12 +192,15 @@ Widget roomListWidget(BuildContext context) => Container(
             child: ListView.separated(
                 padding: EdgeInsets.only(top: 5),
                 itemBuilder: (context, index) {
+                  Room room = provider.getRoomList[index];
                   return RoomViewHolder(
-                      roomno: "G-09", roomname: "Intel Lab", department: "CSE");
+                      roomno: room.roomno!,
+                      roomname: room.roomname!,
+                      department: room.departmentname!);
                 },
                 separatorBuilder: (context, index) => Divider(
                     color: Color.fromARGB(255, 218, 218, 218), height: 1),
-                itemCount: 5),
+                itemCount: provider.roomCount),
           )
         ],
       ),
