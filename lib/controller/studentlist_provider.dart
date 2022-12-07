@@ -15,8 +15,8 @@ class StudentListProvider extends ChangeNotifier {
   }
 
   void fetchStudentListProvider() async {
+    _isLoad = true;
     try {
-      _isLoad = true;
       var response = await ApiClient.getServices().getAllStudentApi();
       StudentListModel studentListModel = studentListModelFromJson(response);
       _studentList = studentListModel.data ?? [];

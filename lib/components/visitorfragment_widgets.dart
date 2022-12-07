@@ -1,3 +1,4 @@
+import 'package:antry_admin/components/progress_loadder.dart';
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/visitor_viewholder.dart';
 import 'package:antry_admin/controller/visitorlist_provider.dart';
@@ -31,7 +32,10 @@ Widget visitorListWidget(
                   height: 26,
                   width: 26,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      provider.setIsLoad = true;
+                      provider.fetchVisitorListProvider();
+                    },
                     tooltip: "Refresh",
                     splashRadius: 20,
                     padding: EdgeInsets.zero,
@@ -72,7 +76,9 @@ Widget visitorListWidget(
                 ],
               )),
           Expanded(
-            child: ListView.separated(
+            child: provider.getIsLoad
+                ? progressLoadder()
+                : ListView.separated(
                 padding: EdgeInsets.only(top: 5),
                 itemBuilder: (context, index) {
                   Visitor visitor = provider.getVisitorList[index];

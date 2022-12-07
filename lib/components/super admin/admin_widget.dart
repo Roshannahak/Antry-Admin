@@ -1,3 +1,4 @@
+import 'package:antry_admin/components/progress_loadder.dart';
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/super%20admin/adminlist_viewholder.dart';
 import 'package:antry_admin/controller/adminlist_provider.dart';
@@ -143,7 +144,10 @@ Widget adminListWidget(
                         height: 26,
                         width: 26,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            provider.setIsLoad = true;
+                            provider.fetchAdminListProvider();
+                          },
                           tooltip: "Refresh",
                           splashRadius: 20,
                           padding: EdgeInsets.zero,
@@ -209,7 +213,9 @@ Widget adminListWidget(
                 ],
               )),
           Expanded(
-            child: ListView.separated(
+            child: provider.getIsLoad
+                ? progressLoadder()
+                : ListView.separated(
                 padding: EdgeInsets.only(top: 5),
                 itemBuilder: (context, index) {
                   Admin admin = provider.getAdminList[index];

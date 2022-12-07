@@ -27,7 +27,7 @@ class _RoomsFragmentState extends State<RoomsFragment> {
             flex: 6,
             child: roomListWidget(context: context, provider: provider)),
         SizedBox(width: 14),
-        Expanded(flex: 4, child: qrPrintPreview()),
+        Expanded(flex: 4, child: qrPrintPreview(context: context)),
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:antry_admin/controller/adminlist_provider.dart';
+import 'package:antry_admin/controller/print_preview_provider.dart';
 import 'package:antry_admin/controller/roomlist_provider.dart';
 import 'package:antry_admin/controller/studentlist_provider.dart';
 import 'package:antry_admin/controller/visitorlist_provider.dart';
@@ -22,6 +23,7 @@ void main() {
               ListenableProvider(create: (context) => RoomListProvider()),
               ListenableProvider(create: (context) => StudentListProvider()),
               ListenableProvider(create: (context) => VisitorListProvider()),
+              ListenableProvider(create: (context) => PrintPreviewProvider()),
             ],
             child: MaterialApp(
               title: "Antry",

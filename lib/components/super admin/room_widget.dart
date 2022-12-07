@@ -1,11 +1,17 @@
+import 'dart:js';
+
+import 'package:antry_admin/components/progress_loadder.dart';
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/super%20admin/roomlist_viewholder.dart';
 import 'package:antry_admin/controller/generate_pdf.dart';
+import 'package:antry_admin/controller/print_preview_provider.dart';
 import 'package:antry_admin/controller/roomlist_provider.dart';
 import 'package:antry_admin/model/roomlist_model.dart';
 import 'package:antry_admin/res/app_colors.dart';
+import 'package:antry_admin/res/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 createRoomDialog(BuildContext context) {
@@ -132,7 +138,10 @@ Widget roomListWidget(
                         height: 26,
                         width: 26,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            provider.setIsLoad = true;
+                            provider.fetchRoomListProvider();
+                          },
                           tooltip: "Refresh",
                           splashRadius: 20,
                           padding: EdgeInsets.zero,
@@ -189,79 +198,94 @@ Widget roomListWidget(
                 ],
               )),
           Expanded(
-            child: ListView.separated(
-                padding: EdgeInsets.only(top: 5),
-                itemBuilder: (context, index) {
-                  Room room = provider.getRoomList[index];
-                  return RoomViewHolder(
-                      roomno: room.roomno!,
-                      roomname: room.roomname!,
-                      department: room.departmentname!);
-                },
-                separatorBuilder: (context, index) => Divider(
-                    color: Color.fromARGB(255, 218, 218, 218), height: 1),
-                itemCount: provider.roomCount),
+            child: provider.getIsLoad
+                ? progressLoadder()
+                : ListView.separated(
+                    padding: EdgeInsets.only(top: 5),
+                    itemBuilder: (context, index) {
+                      Room room = provider.getRoomList[index];
+                      var previewProvider =
+                          Provider.of<PrintPreviewProvider>(context);
+                      return GestureDetector(
+                        onTap: () => previewProvider.setRoom = room,
+                        child: RoomViewHolder(
+                            roomno: room.roomno!,
+                            roomname: room.roomname!,
+                            department: room.departmentname!),
+                      );
+                    },
+                    separatorBuilder: (context, index) => Divider(
+                        color: Color.fromARGB(255, 218, 218, 218), height: 1),
+                    itemCount: provider.roomCount),
           )
         ],
       ),
     );
 
-Widget qrPrintPreview() => Align(
-      alignment: Alignment.topCenter,
-      child: Container(
-        width: 1.sw,
-        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(7)),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "Generated QR Code",
-              style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black54),
+Widget qrPrintPreview({required BuildContext context}) {
+  Room room = Provider.of<PrintPreviewProvider>(context).getRoom;
+  return Align(
+    alignment: Alignment.topCenter,
+    child: Container(
+      width: 1.sw,
+      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(7)),
+      child: room.id == null
+          ? Center(
+              child:
+                  Image(image: AssetImage(noDataIcon)),
+            )
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Generated QR Code",
+                  style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black54),
+                ),
+                Divider(thickness: 1, color: Colors.grey[350]),
+                SizedBox(height: 16),
+                Container(
+                  child: Column(
+                    children: [
+                      Text(
+                        room.roomname!,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black87),
+                      ),
+                      SizedBox(height: 10),
+                      QrImage(
+                        data: room.id!,
+                        size: 170,
+                        padding: EdgeInsets.zero,
+                      ),
+                      Text("scan me", style: TextStyle(fontSize: 14)),
+                      SizedBox(height: 10),
+                      Text(
+                        room.roomno!,
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black87),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 16),
+                Divider(thickness: 1, color: Colors.grey[350]),
+                SizedBox(height: 20),
+                ElevatedButton.icon(
+                    onPressed: () => generateQrcodePdf(),
+                    style: primaryButtonStyle(),
+                    icon: Icon(Icons.print, size: 18),
+                    label: Text("Print"))
+              ],
             ),
-            Divider(thickness: 1, color: Colors.grey[350]),
-            SizedBox(height: 16),
-            Container(
-              child: Column(
-                children: [
-                  Text(
-                    "Intel Lab",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87),
-                  ),
-                  SizedBox(height: 10),
-                  QrImage(
-                    data: "room id",
-                    size: 170,
-                    padding: EdgeInsets.zero,
-                  ),
-                  Text("scan me", style: TextStyle(fontSize: 14)),
-                  SizedBox(height: 10),
-                  Text(
-                    "G-09",
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black87),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 16),
-            Divider(thickness: 1, color: Colors.grey[350]),
-            SizedBox(height: 20),
-            ElevatedButton.icon(
-                onPressed: () => generateQrcodePdf(),
-                style: primaryButtonStyle(),
-                icon: Icon(Icons.print, size: 18),
-                label: Text("Print"))
-          ],
-        ),
-      ),
-    );
+    ),
+  );
+}

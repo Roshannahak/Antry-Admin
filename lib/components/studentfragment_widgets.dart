@@ -1,8 +1,10 @@
+import 'package:antry_admin/components/progress_loadder.dart';
 import 'package:antry_admin/components/studentlist_viewholder.dart';
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/controller/studentlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 import '../model/studentlist_model.dart';
 
@@ -32,7 +34,10 @@ Widget studentListWidget(
                   height: 26,
                   width: 26,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      provider.setIsLoad = true;
+                      provider.fetchStudentListProvider();
+                    },
                     tooltip: "Refresh",
                     splashRadius: 20,
                     padding: EdgeInsets.zero,
@@ -95,21 +100,23 @@ Widget studentListWidget(
                 ],
               )),
           Expanded(
-            child: ListView.separated(
-                padding: EdgeInsets.only(top: 5),
-                itemBuilder: (context, index) {
-                  Student student = provider.getStudentList[index];
-                  return StudentViewHolder(
-                      rollno: student.rollno!,
-                      name: student.fullname!,
-                      branch: student.branch!,
-                      course: student.course!,
-                      semester: student.semester!,
-                      contactno: student.contactno!);
-                },
-                separatorBuilder: (context, index) => Divider(
-                    color: Color.fromARGB(255, 218, 218, 218), height: 1),
-                itemCount: provider.studentCount),
+            child: provider.getIsLoad
+                ? progressLoadder()
+                : ListView.separated(
+                    padding: EdgeInsets.only(top: 5),
+                    itemBuilder: (context, index) {
+                      Student student = provider.getStudentList[index];
+                      return StudentViewHolder(
+                          rollno: student.rollno!,
+                          name: student.fullname!,
+                          branch: student.branch!,
+                          course: student.course!,
+                          semester: student.semester!,
+                          contactno: student.contactno!);
+                    },
+                    separatorBuilder: (context, index) => Divider(
+                        color: Color.fromARGB(255, 218, 218, 218), height: 1),
+                    itemCount: provider.studentCount),
           )
         ],
       ),

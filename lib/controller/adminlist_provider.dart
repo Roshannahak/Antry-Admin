@@ -16,9 +16,11 @@ class AdminListProvider extends ChangeNotifier {
 
   void fetchAdminListProvider() async {
     try {
+      _isLoad = true;
       var response = await ApiClient.getServices().getAllAdminApi();
       AdminListModel adminListModel = adminListModelFromJson(response);
       _adminList = adminListModel.data ?? [];
+      _isLoad = false;
     } catch (e) {
       print("error no 5: $e");
       _isLoad = false;
