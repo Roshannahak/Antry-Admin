@@ -1,11 +1,9 @@
-import 'dart:js';
-
 import 'package:antry_admin/components/progress_loadder.dart';
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/super%20admin/roomlist_viewholder.dart';
 import 'package:antry_admin/controller/generate_pdf.dart';
 import 'package:antry_admin/controller/print_preview_provider.dart';
-import 'package:antry_admin/controller/roomlist_provider.dart';
+import 'package:antry_admin/controller/room_provider.dart';
 import 'package:antry_admin/model/roomlist_model.dart';
 import 'package:antry_admin/res/app_colors.dart';
 import 'package:antry_admin/res/image.dart';
@@ -15,100 +13,123 @@ import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 createRoomDialog(BuildContext context) {
+  final formKey = GlobalKey<FormState>();
+  final roomNoCtrl = TextEditingController();
+  final roomNameCtrl = TextEditingController();
+  final departmentCtrl = TextEditingController();
   Dialog dialog = Dialog(
     backgroundColor: Colors.white,
-    child: Container(
-      width: 500.w,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(primary: AppColor.primaryColor)),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    child: Form(
+      key: formKey,
+      child: Consumer<RoomProvider>(builder: (context, provider, child) {
+        return Container(
+          width: 500.w,
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Theme(
+            data: Theme.of(context).copyWith(
+                colorScheme: ColorScheme.light(primary: AppColor.primaryColor)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  "Create Rooms",
-                  style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Create Rooms",
+                      style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: IconButton(
+                          splashRadius: 16,
+                          padding: EdgeInsets.zero,
+                          onPressed: () => Navigator.pop(context),
+                          icon: Icon(Icons.close_rounded,
+                              size: 24, color: Colors.black87)),
+                    )
+                  ],
                 ),
-                SizedBox(
-                  height: 24,
-                  width: 24,
-                  child: IconButton(
-                      splashRadius: 16,
-                      padding: EdgeInsets.zero,
-                      onPressed: () => Navigator.pop(context),
-                      icon: Icon(Icons.close_rounded,
-                          size: 24, color: Colors.black87)),
-                )
+                SizedBox(height: 20),
+                TextFormField(
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.text,
+                  controller: roomNameCtrl,
+                  maxLines: 1,
+                  validator: (value) {
+                    if (value!.isEmpty) return "required";
+                    return null;
+                  },
+                  cursorColor: Colors.black,
+                  decoration: fieldInputDecoration(label: "Room Name"),
+                ),
+                SizedBox(height: 18),
+                Row(
+                  children: [
+                    Expanded(
+                        flex: 3,
+                        child: TextFormField(
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.text,
+                          controller: roomNoCtrl,
+                          maxLines: 1,
+                          validator: (value) {
+                            if (value!.isEmpty) return "required";
+                            return null;
+                          },
+                          cursorColor: Colors.black,
+                          decoration: fieldInputDecoration(
+                              label: "Room No", hintText: "Ex: G-09"),
+                        )),
+                    SizedBox(width: 15),
+                    Expanded(
+                        flex: 7,
+                        child: TextFormField(
+                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.text,
+                          controller: departmentCtrl,
+                          maxLines: 1,
+                          validator: (value) {
+                            if (value!.isEmpty) return "required";
+                            return null;
+                          },
+                          cursorColor: Colors.black,
+                          decoration: fieldInputDecoration(label: "Department"),
+                        ))
+                  ],
+                ),
+                SizedBox(height: 30),
+                ElevatedButton(
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        provider.setSubmitLoadder = true;
+                        provider.addRoomProvider(
+                            context: context,
+                            roomNo: roomNoCtrl.text.trim(),
+                            roomName: roomNameCtrl.text.trim(),
+                            department: departmentCtrl.text.trim());
+                      }
+                    },
+                    child: provider.getSubmitLoadder
+                        ? circulerLoadder(height: 20.r, width: 20.r)
+                        : Text("Submit"),
+                    style: primaryButtonStyle()),
+                SizedBox(height: 10)
               ],
             ),
-            SizedBox(height: 20),
-            TextFormField(
-              textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.text,
-              maxLines: 1,
-              validator: (value) {
-                if (value!.isEmpty) return "required";
-                return null;
-              },
-              cursorColor: Colors.black,
-              decoration: fieldInputDecoration(label: "Room Name"),
-            ),
-            SizedBox(height: 18),
-            Row(
-              children: [
-                Expanded(
-                    flex: 3,
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
-                      maxLines: 1,
-                      validator: (value) {
-                        if (value!.isEmpty) return "required";
-                        return null;
-                      },
-                      cursorColor: Colors.black,
-                      decoration: fieldInputDecoration(
-                          label: "Room No", hintText: "Ex: G-09"),
-                    )),
-                SizedBox(width: 15),
-                Expanded(
-                    flex: 7,
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
-                      maxLines: 1,
-                      validator: (value) {
-                        if (value!.isEmpty) return "required";
-                        return null;
-                      },
-                      cursorColor: Colors.black,
-                      decoration: fieldInputDecoration(label: "Department"),
-                    ))
-              ],
-            ),
-            SizedBox(height: 30),
-            ElevatedButton(
-                onPressed: () {},
-                child: Text("Submit"),
-                style: primaryButtonStyle()),
-            SizedBox(height: 10)
-          ],
-        ),
-      ),
+          ),
+        );
+      }),
     ),
   );
   showDialog(context: context, builder: (context) => dialog);
 }
 
 Widget roomListWidget(
-        {required BuildContext context, required RoomListProvider provider}) =>
+        {required BuildContext context, required RoomProvider provider}) =>
     Container(
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(7)),
@@ -233,8 +254,7 @@ Widget qrPrintPreview({required BuildContext context}) {
           color: Colors.white, borderRadius: BorderRadius.circular(7)),
       child: room.id == null
           ? Center(
-              child:
-                  Image(image: AssetImage(noDataIcon)),
+              child: Image(image: AssetImage(noDataIcon)),
             )
           : Column(
               mainAxisSize: MainAxisSize.min,

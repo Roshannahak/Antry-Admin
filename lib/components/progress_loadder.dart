@@ -26,3 +26,13 @@ Widget progressLoadder() {
     ),
   );
 }
+
+Widget circulerLoadder(
+        {double height = 25,
+        double width = 25,
+        Color strokeColor = Colors.white}) =>
+    SizedBox(
+      height: height,
+      width: width,
+      child: CircularProgressIndicator(color: strokeColor, strokeWidth: 3),
+    );

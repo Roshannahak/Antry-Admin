@@ -1,5 +1,5 @@
 import 'package:antry_admin/components/super%20admin/room_widget.dart';
-import 'package:antry_admin/controller/roomlist_provider.dart';
+import 'package:antry_admin/controller/room_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,13 +14,13 @@ class _RoomsFragmentState extends State<RoomsFragment> {
   @override
   void initState() {
     super.initState();
-    Provider.of<RoomListProvider>(context, listen: false)
+    Provider.of<RoomProvider>(context, listen: false)
         .fetchRoomListProvider();
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<RoomListProvider>(context);
+    final provider = Provider.of<RoomProvider>(context);
     return Row(
       children: [
         Expanded(

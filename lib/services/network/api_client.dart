@@ -39,12 +39,12 @@ abstract class ApiClient {
   Future<String> getAllRoomsApi();
 
   @POST("/api/room")
-  Future<String> addRoomApi(@Body() String map);
+  Future<String> addRoomApi(@Body() Map<String, dynamic> body);
 
   @DELETE("/api/room/{roomid}")
   Future<String> deleteRoomApi(@Path("roomid") String roomId);
 
   @PUT("/api/room/{roomid}")
   Future<String> updateRoomApi(
-      @Path("roomId") String roomId, @Body() String map);
+      @Path("roomId") String roomId, @Body() Map<String, dynamic> body);
 }

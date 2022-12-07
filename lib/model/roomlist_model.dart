@@ -45,14 +45,14 @@ class Room {
     String? roomno;
     String? roomname;
     String? departmentname;
-    DateTime? created;
+    String? created;
 
     factory Room.fromJson(Map<String, dynamic> json) => Room(
         id: json["_id"],
         roomno: json["roomno"],
         roomname: json["roomname"],
         departmentname: json["departmentname"],
-        created: DateTime.parse(json["created"]),
+        created: json["created"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -60,6 +60,6 @@ class Room {
         "roomno": roomno,
         "roomname": roomname,
         "departmentname": departmentname,
-        "created": "${created?.year.toString().padLeft(4, '0')}-${created?.month.toString().padLeft(2, '0')}-${created?.day.toString().padLeft(2, '0')}",
+        "created": created,
     };
 }
