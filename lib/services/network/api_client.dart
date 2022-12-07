@@ -20,6 +20,13 @@ abstract class ApiClient {
   @DELETE("/api/student/{studentid}")
   Future<String> deleteStudentApi(@Path("studentid") String studentId);
 
+  //STUDENT LOG API
+  @GET("/api/student/log")
+  Future<String> getStudentsLogApi();
+
+  @GET("/api/student/log/{studentid}")
+  Future<String> singleStudentLogApi(@Path("studentid") String studentId);
+
   //VISITOR API
   //.
   @GET("/api/visitor")
@@ -27,6 +34,13 @@ abstract class ApiClient {
 
   @DELETE("/api/visitor/{visitorid}")
   Future<String> deleteVisitorApi(@Path("visitorid") String visitorId);
+
+  //VISITOR LOG API
+  @GET("/api/visitor/log")
+  Future<String> getVisitorLogApi();
+
+  @GET("/api/visitor/log/{visitorid}")
+  Future<String> singleVisitorLogApi(@Path("visitorid") String visitorId);
 
   //ADMIN API
   //.

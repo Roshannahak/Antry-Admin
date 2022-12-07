@@ -1,8 +1,10 @@
 import 'package:antry_admin/controller/admin_provider.dart';
 import 'package:antry_admin/controller/print_preview_provider.dart';
 import 'package:antry_admin/controller/room_provider.dart';
-import 'package:antry_admin/controller/studentlist_provider.dart';
+import 'package:antry_admin/controller/student_provider.dart';
+import 'package:antry_admin/controller/studentlog_provider.dart';
 import 'package:antry_admin/controller/visitorlist_provider.dart';
+import 'package:antry_admin/controller/visitorlog_provider.dart';
 import 'package:antry_admin/pages/home_page.dart';
 import 'package:antry_admin/pages/login_page.dart';
 import 'package:antry_admin/routes/route.dart';
@@ -21,9 +23,11 @@ void main() {
             providers: [
               ListenableProvider(create: (context) => AdminProvider()),
               ListenableProvider(create: (context) => RoomProvider()),
-              ListenableProvider(create: (context) => StudentListProvider()),
+              ListenableProvider(create: (context) => StudentProvider()),
               ListenableProvider(create: (context) => VisitorListProvider()),
               ListenableProvider(create: (context) => PrintPreviewProvider()),
+              ListenableProvider(create: (context) => StudentLogProvider()),
+              ListenableProvider(create: (context) => VisitorLogProvider()),
             ],
             child: MaterialApp(
               title: "Antry",

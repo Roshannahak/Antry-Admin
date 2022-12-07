@@ -2,7 +2,7 @@ import 'package:antry_admin/model/studentlist_model.dart';
 import 'package:antry_admin/services/network/api_client.dart';
 import 'package:flutter/material.dart';
 
-class StudentListProvider extends ChangeNotifier {
+class StudentProvider extends ChangeNotifier {
   List<Student> _studentList = [];
   List<Student> get getStudentList => _studentList;
   int get studentCount => _studentList.length;

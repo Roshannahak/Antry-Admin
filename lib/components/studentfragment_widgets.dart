@@ -1,15 +1,14 @@
 import 'package:antry_admin/components/progress_loadder.dart';
 import 'package:antry_admin/components/studentlist_viewholder.dart';
 import 'package:antry_admin/components/style.dart';
-import 'package:antry_admin/controller/studentlist_provider.dart';
+import 'package:antry_admin/controller/student_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 import '../model/studentlist_model.dart';
 
 Widget studentListWidget(
-        {required StudentListProvider provider,
+        {required StudentProvider provider,
         required BuildContext context}) =>
     Container(
       decoration: BoxDecoration(
