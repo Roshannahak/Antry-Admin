@@ -1,5 +1,5 @@
 import 'package:antry_admin/components/super%20admin/admin_widget.dart';
-import 'package:antry_admin/controller/adminlist_provider.dart';
+import 'package:antry_admin/controller/admin_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,11 +15,11 @@ class _AdminFragmentState extends State<AdminFragment> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<AdminListProvider>(context, listen: false).fetchAdminListProvider();
+    Provider.of<AdminProvider>(context, listen: false).fetchAdminListProvider();
   }
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AdminListProvider>(context);
+    final provider = Provider.of<AdminProvider>(context);
     return adminListWidget(context: context, provider: provider);
   }
 }

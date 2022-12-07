@@ -33,6 +33,9 @@ abstract class ApiClient {
   @GET("/api/admin")
   Future<String> getAllAdminApi();
 
+  @POST("/api/auth/admin/register")
+  Future<String> addAdminApi(@Body() Map<String, dynamic> body);
+
   //ROOM API
   //.
   @GET("/api/room")

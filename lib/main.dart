@@ -1,4 +1,4 @@
-import 'package:antry_admin/controller/adminlist_provider.dart';
+import 'package:antry_admin/controller/admin_provider.dart';
 import 'package:antry_admin/controller/print_preview_provider.dart';
 import 'package:antry_admin/controller/room_provider.dart';
 import 'package:antry_admin/controller/studentlist_provider.dart';
@@ -19,7 +19,7 @@ void main() {
         builder: (context, child) {
           return MultiProvider(
             providers: [
-              ListenableProvider(create: (context) => AdminListProvider()),
+              ListenableProvider(create: (context) => AdminProvider()),
               ListenableProvider(create: (context) => RoomProvider()),
               ListenableProvider(create: (context) => StudentListProvider()),
               ListenableProvider(create: (context) => VisitorListProvider()),
