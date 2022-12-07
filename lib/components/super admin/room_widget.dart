@@ -300,7 +300,7 @@ Widget qrPrintPreview({required BuildContext context}) {
                 Divider(thickness: 1, color: Colors.grey[350]),
                 SizedBox(height: 20),
                 ElevatedButton.icon(
-                    onPressed: () => generateQrcodePdf(),
+                    onPressed: () => generateQrcodePdf(room: room),
                     style: primaryButtonStyle(),
                     icon: Icon(Icons.print, size: 18),
                     label: Text("Print"))
