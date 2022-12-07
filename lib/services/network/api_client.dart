@@ -24,8 +24,8 @@ abstract class ApiClient {
   @GET("/api/student/log")
   Future<String> getStudentsLogApi();
 
-  @GET("/api/student/log/{studentid}")
-  Future<String> singleStudentLogApi(@Path("studentid") String studentId);
+  @GET("/api/student/log/{logid}")
+  Future<String> singleStudentLogApi(@Path("logid") String logId);
 
   //VISITOR API
   //.
@@ -39,8 +39,8 @@ abstract class ApiClient {
   @GET("/api/visitor/log")
   Future<String> getVisitorLogApi();
 
-  @GET("/api/visitor/log/{visitorid}")
-  Future<String> singleVisitorLogApi(@Path("visitorid") String visitorId);
+  @GET("/api/visitor/log/{logid}")
+  Future<String> singleVisitorLogApi(@Path("logid") String logId);
 
   //ADMIN API
   //.

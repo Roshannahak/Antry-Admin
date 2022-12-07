@@ -87,7 +87,7 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<String> singleStudentLogApi(studentId) async {
+  Future<String> singleStudentLogApi(logId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -99,7 +99,7 @@ class _ApiClient implements ApiClient {
     )
         .compose(
           _dio.options,
-          '/api/student/log/${studentId}',
+          '/api/student/log/${logId}',
           queryParameters: queryParameters,
           data: _data,
         )
@@ -175,7 +175,7 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<String> singleVisitorLogApi(visitorId) async {
+  Future<String> singleVisitorLogApi(logId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -187,7 +187,7 @@ class _ApiClient implements ApiClient {
     )
         .compose(
           _dio.options,
-          '/api/visitor/log/${visitorId}',
+          '/api/visitor/log/${logId}',
           queryParameters: queryParameters,
           data: _data,
         )
