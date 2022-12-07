@@ -1,6 +1,7 @@
 import 'package:antry_admin/components/progress_loadder.dart';
 import 'package:antry_admin/components/studentlog_viewholder.dart';
 import 'package:antry_admin/components/style.dart';
+import 'package:antry_admin/controller/date_format.dart';
 import 'package:antry_admin/controller/studentlog_provider.dart';
 import 'package:antry_admin/model/roomlist_model.dart';
 import 'package:antry_admin/model/studentlist_model.dart';
@@ -107,12 +108,18 @@ Widget studentLogListWidget({required StudentLogProvider provider}) {
                     Student student = studentLog.student!;
                     Room room = studentLog.room!;
                     return StudentLogViewHolder(
-                        date: "19-11-2022",
+                        date: dateFormater(
+                            dateTime: studentLog.intime!,
+                            formatType: FormatType.DATE),
                         name: student.fullname!,
                         branch: student.branch!,
                         roomNo: room.roomno!,
-                        inTime: "09:00",
-                        outTime: "17:30");
+                        inTime: dateFormater(
+                            dateTime: studentLog.intime!,
+                            formatType: FormatType.TIME),
+                        outTime: dateFormater(
+                            dateTime: studentLog.outtime!,
+                            formatType: FormatType.TIME));
                   },
                   separatorBuilder: (context, index) => Divider(
                       color: Color.fromARGB(255, 218, 218, 218), height: 1),

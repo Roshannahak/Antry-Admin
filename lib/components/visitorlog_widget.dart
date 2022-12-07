@@ -1,12 +1,18 @@
-import 'package:antry_admin/components/studentlog_viewholder.dart';
+import 'package:antry_admin/components/progress_loadder.dart';
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/visitorlog_viewholder.dart';
+import 'package:antry_admin/controller/date_format.dart';
+import 'package:antry_admin/controller/visitorlog_provider.dart';
+import 'package:antry_admin/model/roomlist_model.dart';
+import 'package:antry_admin/model/visitorlist_model.dart';
+import 'package:antry_admin/model/visitorlog_model.dart';
 import 'package:antry_admin/res/app_colors.dart';
 import 'package:antry_admin/res/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
-Widget visitorLogListWidget() {
+Widget visitorLogListWidget({required VisitorLogProvider provider}) {
   return Container(
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(7)),
@@ -30,7 +36,10 @@ Widget visitorLogListWidget() {
                 height: 26,
                 width: 26,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    provider.setIsLoad = true;
+                    provider.fetchVisitorLogProvider();
+                  },
                   tooltip: "Refresh",
                   splashRadius: 20,
                   padding: EdgeInsets.zero,
@@ -91,20 +100,31 @@ Widget visitorLogListWidget() {
               ],
             )),
         Expanded(
-          child: ListView.separated(
-              padding: EdgeInsets.only(top: 5),
-              itemBuilder: (context, index) {
-                return VisitorLogViewHolder(
-                    date: "19-11-2022",
-                    name: "Kishan Nahak",
-                    city: "mumbai",
-                    roomNo: "G-03",
-                    inTime: "09:00",
-                    outTime: "17:30");
-              },
-              separatorBuilder: (context, index) =>
-                  Divider(color: Color.fromARGB(255, 218, 218, 218), height: 1),
-              itemCount: 20),
+          child: provider.getIsLoad
+              ? progressLoadder()
+              : ListView.separated(
+                  padding: EdgeInsets.only(top: 5),
+                  itemBuilder: (context, index) {
+                    VisitorLog visitorLog = provider.getVsitorLog[index];
+                    Visitor visitor = visitorLog.visitor!;
+                    Room room = visitorLog.room!;
+                    return VisitorLogViewHolder(
+                        date: dateFormater(
+                            dateTime: visitorLog.intime!,
+                            formatType: FormatType.DATE), //"19-11-2022",
+                        name: visitor.fullname!,
+                        city: visitor.city!,
+                        roomNo: room.roomno!,
+                        inTime: dateFormater(
+                            dateTime: visitorLog.intime!,
+                            formatType: FormatType.TIME),
+                        outTime: dateFormater(
+                            dateTime: visitorLog.outtime!,
+                            formatType: FormatType.TIME));
+                  },
+                  separatorBuilder: (context, index) => Divider(
+                      color: Color.fromARGB(255, 218, 218, 218), height: 1),
+                  itemCount: provider.visitorLogCount),
         )
       ],
     ),
