@@ -8,7 +8,7 @@ class DetailCardViewholder extends StatelessWidget {
       : super(key: key);
 
   final String cardTitle;
-  final int? data;
+  final String? data;
   final IconData icon;
 
   @override
@@ -46,7 +46,7 @@ class DetailCardViewholder extends StatelessWidget {
                     Expanded(
                       flex: 9,
                       child: Text(
-                        "$data",
+                        data ?? "...",
                         style: TextStyle(
                             fontSize: 30.sp,
                             color: Colors.black54,

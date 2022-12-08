@@ -1,6 +1,9 @@
 import 'package:antry_admin/components/detailcard_viewholder.dart';
+import 'package:antry_admin/controller/dashboardstat_provider.dart';
+import 'package:antry_admin/model/dashboardstat_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class DashBoardFragment extends StatefulWidget {
   DashBoardFragment({Key? key}) : super(key: key);
@@ -11,7 +14,16 @@ class DashBoardFragment extends StatefulWidget {
 
 class _DashBoardFragmentState extends State<DashBoardFragment> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<DashboardStatProvider>(context, listen: false)
+        .fetchDashboardStatsProvider();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Stats stats = Provider.of<DashboardStatProvider>(context).getStats;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -33,21 +45,25 @@ class _DashBoardFragmentState extends State<DashBoardFragment> {
           physics: NeverScrollableScrollPhysics(),
           children: [
             DetailCardViewholder(
-                cardTitle: "Registered Students", data: 182, icon: Icons.group),
+                cardTitle: "Registered Students",
+                data: stats.totalStudent,
+                icon: Icons.group),
             DetailCardViewholder(
-                cardTitle: "Rooms", data: 52, icon: Icons.business),
+                cardTitle: "Rooms",
+                data: stats.totalRooms,
+                icon: Icons.business),
             DetailCardViewholder(
-                cardTitle: "Entry Logs", data: 1006, icon: Icons.assessment),
-            DetailCardViewholder(
-                cardTitle: "Checked-In",
-                data: 6,
-                icon: Icons.assignment_turned_in),
+                cardTitle: "Entry Logs",
+                data: stats.totalLogs,
+                icon: Icons.assessment),
             DetailCardViewholder(
                 cardTitle: "Admin Access",
-                data: 3,
+                data: stats.totalAdmin,
                 icon: Icons.admin_panel_settings),
             DetailCardViewholder(
-                cardTitle: "Total Visitors", data: 34, icon: Icons.group_sharp)
+                cardTitle: "Total Visitors",
+                data: stats.totalVisitor,
+                icon: Icons.group_sharp)
           ],
         )
       ],

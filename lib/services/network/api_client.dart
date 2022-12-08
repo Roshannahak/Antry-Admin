@@ -12,6 +12,10 @@ abstract class ApiClient {
     return ApiClient(dio);
   }
 
+  //DASHBOARD STATS API
+  @GET("/api/stats")
+  Future<String> getStatsApi();
+
   //STUDENT API
   //.
   @GET("/api/student")

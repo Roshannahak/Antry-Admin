@@ -1,4 +1,5 @@
 import 'package:antry_admin/controller/admin_provider.dart';
+import 'package:antry_admin/controller/dashboardstat_provider.dart';
 import 'package:antry_admin/controller/print_preview_provider.dart';
 import 'package:antry_admin/controller/room_provider.dart';
 import 'package:antry_admin/controller/single_studentlog_provider.dart';
@@ -30,6 +31,7 @@ void main() {
               ListenableProvider(create: (context) => PrintPreviewProvider()),
               ListenableProvider(create: (context) => StudentLogProvider()),
               ListenableProvider(create: (context) => VisitorLogProvider()),
+              ListenableProvider(create: (context) => DashboardStatProvider()),
               ListenableProvider(
                   create: (context) => SingleStudentLogProvider()),
               ListenableProvider(
