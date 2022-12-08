@@ -2,6 +2,7 @@ import 'package:antry_admin/components/progress_loadder.dart';
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/visitorlog_viewholder.dart';
 import 'package:antry_admin/controller/date_format.dart';
+import 'package:antry_admin/controller/single_visitorlog_provider.dart';
 import 'package:antry_admin/controller/visitorlog_provider.dart';
 import 'package:antry_admin/model/roomlist_model.dart';
 import 'package:antry_admin/model/visitorlist_model.dart';
@@ -10,9 +11,11 @@ import 'package:antry_admin/res/app_colors.dart';
 import 'package:antry_admin/res/image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-Widget visitorLogListWidget({required VisitorLogProvider provider}) {
+Widget visitorLogListWidget(BuildContext context) {
+  final provider = Provider.of<VisitorLogProvider>(context);
+  final logDetailProvider = Provider.of<SingleVisitorLogProvider>(context);
   return Container(
     decoration: BoxDecoration(
         color: Colors.white, borderRadius: BorderRadius.circular(7)),
@@ -108,19 +111,25 @@ Widget visitorLogListWidget({required VisitorLogProvider provider}) {
                     VisitorLog visitorLog = provider.getVsitorLog[index];
                     Visitor visitor = visitorLog.visitor!;
                     Room room = visitorLog.room!;
-                    return VisitorLogViewHolder(
-                        date: dateFormater(
-                            dateTime: visitorLog.intime!,
-                            formatType: FormatType.DATE), //"19-11-2022",
-                        name: visitor.fullname!,
-                        city: visitor.city!,
-                        roomNo: room.roomno!,
-                        inTime: dateFormater(
-                            dateTime: visitorLog.intime!,
-                            formatType: FormatType.TIME),
-                        outTime: dateFormater(
-                            dateTime: visitorLog.outtime!,
-                            formatType: FormatType.TIME));
+                    return GestureDetector(
+                      onTap: (){
+                        logDetailProvider.setIsLoad = true;
+                        logDetailProvider.fetchVisitorLogById(visitorLog.id!);
+                      },
+                      child: VisitorLogViewHolder(
+                          date: dateFormater(
+                              dateTime: visitorLog.intime!,
+                              formatType: FormatType.DATE), //"19-11-2022",
+                          name: visitor.fullname!,
+                          city: visitor.city!,
+                          roomNo: room.roomno!,
+                          inTime: dateFormater(
+                              dateTime: visitorLog.intime!,
+                              formatType: FormatType.TIME),
+                          outTime: dateFormater(
+                              dateTime: visitorLog.outtime!,
+                              formatType: FormatType.TIME)),
+                    );
                   },
                   separatorBuilder: (context, index) => Divider(
                       color: Color.fromARGB(255, 218, 218, 218), height: 1),

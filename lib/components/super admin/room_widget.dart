@@ -1,3 +1,4 @@
+import 'package:antry_admin/components/error_widget.dart';
 import 'package:antry_admin/components/progress_loadder.dart';
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/super%20admin/roomlist_viewholder.dart';
@@ -253,9 +254,7 @@ Widget qrPrintPreview({required BuildContext context}) {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(7)),
       child: room.id == null
-          ? Center(
-              child: Image(image: AssetImage(noDataIcon)),
-            )
+          ? noDataWidget()
           : Column(
               mainAxisSize: MainAxisSize.min,
               children: [

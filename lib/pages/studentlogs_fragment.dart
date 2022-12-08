@@ -21,12 +21,11 @@ class _StudentLogsFragmentState extends State<StudentLogsFragment> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<StudentLogProvider>(context);
     return Row(
       children: [
-        Expanded(flex: 7, child: studentLogListWidget(provider: provider)),
+        Expanded(flex: 7, child: studentLogListWidget(context)),
         SizedBox(width: 14),
-        Expanded(flex: 3, child: studentLogDetailsWidget()),
+        Expanded(flex: 3, child: studentLogDetailsWidget(context)),
       ],
     );
   }
