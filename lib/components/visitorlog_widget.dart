@@ -1,3 +1,4 @@
+import 'package:antry_admin/components/error_widget.dart';
 import 'package:antry_admin/components/progress_loadder.dart';
 import 'package:antry_admin/components/style.dart';
 import 'package:antry_admin/components/visitorlog_viewholder.dart';
@@ -112,7 +113,7 @@ Widget visitorLogListWidget(BuildContext context) {
                     Visitor visitor = visitorLog.visitor!;
                     Room room = visitorLog.room!;
                     return GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         logDetailProvider.setIsLoad = true;
                         logDetailProvider.fetchVisitorLogById(visitorLog.id!);
                       },
@@ -140,7 +141,9 @@ Widget visitorLogListWidget(BuildContext context) {
   );
 }
 
-Widget visitorLogDetailsWidget() {
+Widget visitorLogDetailsWidget(BuildContext context) {
+  final logDetailProvider = Provider.of<SingleVisitorLogProvider>(context);
+  VisitorLog visitorLog = logDetailProvider.getVisitorLog;
   return Align(
     alignment: Alignment.topCenter,
     child: Container(
@@ -148,173 +151,192 @@ Widget visitorLogDetailsWidget() {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(7)),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            "Log Details",
-            style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w700,
-                color: Colors.black54),
-          ),
-          SizedBox(height: 20),
-
-          //user details
-          Container(
-            width: double.infinity,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ClipOval(
-                  child: Image.asset(userIcon, width: 80, height: 80),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  "Roshan Nahak",
-                  style: TextStyle(
-                      overflow: TextOverflow.ellipsis,
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500),
-                ),
-                SizedBox(height: 3),
-                Text(
-                  "8319312145",
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                ),
-                SizedBox(height: 20),
-              ],
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "Log Details",
+              style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black54),
             ),
-          ),
-          SizedBox(height: 10),
-          //visit details
-          Text(
-            "Visited To",
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Colors.black87),
-          ),
-          SizedBox(height: 10),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            decoration: BoxDecoration(
-                color: AppColor.primaryColor50,
-                borderRadius: BorderRadius.circular(5)),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(flex: 4, child: Text("Date :")),
-                    Expanded(
-                        flex: 6,
-                        child: Text("18-Nov-2022",
-                            overflow: TextOverflow.ellipsis))
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    Expanded(flex: 4, child: Text("Room :")),
-                    Expanded(
-                        flex: 6,
-                        child: Text("Library", overflow: TextOverflow.ellipsis))
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    Expanded(flex: 4, child: Text("Room No :")),
-                    Expanded(
-                        flex: 6,
-                        child: Text("G-09", overflow: TextOverflow.ellipsis))
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    Expanded(flex: 4, child: Text("Department :")),
-                    Expanded(
-                        flex: 6,
-                        child: Text("CSE", overflow: TextOverflow.ellipsis))
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    Expanded(flex: 4, child: Text("Check-in :")),
-                    Expanded(
-                        flex: 6,
-                        child: Row(
+            SizedBox(height: 20),
+            logDetailProvider.getHasData
+                ? Column(children: [
+                    //user details
+                    Container(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ClipOval(
+                            child: Image.asset(userIcon, width: 80, height: 80),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "${visitorLog.visitor?.fullname}",
+                            style: TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(height: 3),
+                          Text(
+                            "${visitorLog.visitor?.contactno}",
+                            style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          SizedBox(height: 20),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    //visit details
+                    Text(
+                      "Visited To",
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      decoration: BoxDecoration(
+                          color: AppColor.primaryColor50,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Text("Date :")),
+                              Expanded(
+                                  flex: 6,
+                                  child: Text(
+                                      dateFormater(
+                                          dateTime: visitorLog.intime!,
+                                          formatType: FormatType.DATE),
+                                      overflow: TextOverflow.ellipsis))
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Text("Room :")),
+                              Expanded(
+                                  flex: 6,
+                                  child: Text("${visitorLog.room?.roomname}",
+                                      overflow: TextOverflow.ellipsis))
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Text("Room No :")),
+                              Expanded(
+                                  flex: 6,
+                                  child: Text("${visitorLog.room?.roomno}",
+                                      overflow: TextOverflow.ellipsis))
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Text("Department :")),
+                              Expanded(
+                                  flex: 6,
+                                  child: Text(
+                                      "${visitorLog.room?.departmentname}",
+                                      overflow: TextOverflow.ellipsis))
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Text("Check-in :")),
+                              Expanded(
+                                  flex: 6,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                          dateFormater(
+                                              dateTime: visitorLog.intime!,
+                                              formatType: FormatType.TIME),
+                                          overflow: TextOverflow.ellipsis),
+                                      SizedBox(width: 1),
+                                      Icon(
+                                        Icons.arrow_upward_rounded,
+                                        size: 18.r,
+                                        color: Colors.green[600],
+                                      )
+                                    ],
+                                  ))
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Expanded(flex: 4, child: Text("Check-out :")),
+                              Expanded(
+                                  flex: 6,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                          dateFormater(
+                                              dateTime: visitorLog.outtime!,
+                                              formatType: FormatType.TIME),
+                                          overflow: TextOverflow.ellipsis),
+                                      SizedBox(width: 1),
+                                      Icon(
+                                        Icons.arrow_downward_rounded,
+                                        size: 18.r,
+                                        color: Colors.red[600],
+                                      )
+                                    ],
+                                  ))
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    //visit reason section
+                    Container(
+                      width: 1.sw,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      decoration: BoxDecoration(
+                          color: AppColor.hoverGrey,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text("09:00", overflow: TextOverflow.ellipsis),
-                            SizedBox(width: 1),
-                            Icon(
-                              Icons.arrow_upward_rounded,
-                              size: 18.r,
-                              color: Colors.green[600],
+                            Text(
+                              "Reason for visit",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black87),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              "${visitorLog.reason}",
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.black87),
                             )
-                          ],
-                        ))
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    Expanded(flex: 4, child: Text("Check-out :")),
-                    Expanded(
-                        flex: 6,
-                        child: Row(
-                          children: [
-                            Text("17:30", overflow: TextOverflow.ellipsis),
-                            SizedBox(width: 1),
-                            Icon(
-                              Icons.arrow_downward_rounded,
-                              size: 18.r,
-                              color: Colors.red[600],
-                            )
-                          ],
-                        ))
-                  ],
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
-          //visit reason section
-          Container(
-            width: 1.sw,
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            decoration: BoxDecoration(
-                color: AppColor.hoverGrey,
-                borderRadius: BorderRadius.circular(5)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  "Reason for visit",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 14, color: Colors.black87),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
+                          ]),
+                    )
+                  ])
+                : noDataWidget()
+          ]),
     ),
   );
 }

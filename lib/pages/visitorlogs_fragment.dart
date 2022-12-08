@@ -26,7 +26,7 @@ class _VisitorLogsFragmentState extends State<VisitorLogsFragment> {
       children: [
         Expanded(flex: 7, child: visitorLogListWidget(context)),
         SizedBox(width: 14),
-        Expanded(flex: 3, child: visitorLogDetailsWidget()),
+        Expanded(flex: 3, child: visitorLogDetailsWidget(context)),
       ],
     );
   }
