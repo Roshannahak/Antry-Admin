@@ -48,16 +48,16 @@ class StudentLog {
     String? id;
     Student? student;
     Room? room;
-    DateTime? intime;
-    DateTime? outtime;
+    String? intime;
+    String? outtime;
     String? reason;
 
     factory StudentLog.fromJson(Map<String, dynamic> json) => StudentLog(
         id: json["_id"],
         student: Student.fromJson(json["student"]),
         room: Room.fromJson(json["room"]),
-        intime: DateTime.parse(json["intime"]),
-        outtime: DateTime.parse(json["outtime"]),
+        intime: json["intime"] ?? "",
+        outtime: json["outtime"] ?? "",
         reason: json["reason"],
     );
 
@@ -65,8 +65,8 @@ class StudentLog {
         "_id": id,
         "student": student?.toJson(),
         "room": room?.toJson(),
-        "intime": intime?.toIso8601String(),
-        "outtime": outtime?.toIso8601String(),
+        "intime": intime,
+        "outtime": outtime,
         "reason": reason,
     };
 }

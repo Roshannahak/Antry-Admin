@@ -52,16 +52,16 @@ class VisitorLog {
   String? id;
   Visitor? visitor;
   Room? room;
-  DateTime? intime;
-  DateTime? outtime;
+  String? intime;
+  String? outtime;
   String? reason;
 
   factory VisitorLog.fromJson(Map<String, dynamic> json) => VisitorLog(
         id: json["_id"],
         visitor: Visitor.fromJson(json["visitor"]),
         room: Room.fromJson(json["room"]),
-        intime: DateTime.parse(json["intime"]),
-        outtime: DateTime.parse(json["outtime"]),
+        intime: json["intime"] ?? "",
+        outtime: json["outtime"] ?? "",
         reason: json["reason"],
       );
 
@@ -69,8 +69,8 @@ class VisitorLog {
         "_id": id,
         "visitor": visitor?.toJson(),
         "room": room?.toJson(),
-        "intime": intime?.toIso8601String(),
-        "outtime": outtime?.toIso8601String(),
+        "intime": intime,
+        "outtime": outtime,
         "reason": reason,
       };
 }
