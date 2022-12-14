@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../res/image.dart';
 
-AppBar navigationBar({required bool isadmin}) => AppBar(
+AppBar navigationBar({required bool isSuperAdmin, required String name}) => AppBar(
       shadowColor: Colors.transparent,
       backgroundColor: Colors.white,
       leadingWidth: 160,
@@ -28,19 +28,19 @@ AppBar navigationBar({required bool isadmin}) => AppBar(
                         color: AppColor.primaryColor,
                         borderRadius: BorderRadius.circular(3)),
                     child: Center(
-                      child: isadmin
+                      child: isSuperAdmin
                           ? Text(
-                              "ADMIN",
+                              "SUPER ADMIN",
                               style: userTagTextStyle(),
                             )
                           : Text(
-                              "SUPER ADMIN",
+                              "ADMIN",
                               style: userTagTextStyle(),
                             ),
                     )),
                 SizedBox(width: 16),
                 Text(
-                  "Roshan Nahak",
+                  "$name",
                   style: TextStyle(color: Colors.black87, fontSize: 16),
                 ),
                 PopupMenuButton(

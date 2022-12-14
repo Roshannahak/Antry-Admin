@@ -1,6 +1,8 @@
 import 'package:antry_admin/components/navigationbar.dart';
 import 'package:antry_admin/components/admin_sidenav_items.dart';
 import 'package:antry_admin/components/super%20admin/sAdmin_sidenav_items%20copy.dart';
+import 'package:antry_admin/controller/adminlogin_provider.dart';
+import 'package:antry_admin/model/adminlist_model.dart';
 import 'package:antry_admin/pages/dashboard_fragment.dart';
 import 'package:antry_admin/pages/studentlogs_fragment.dart';
 import 'package:antry_admin/pages/profile_fragment.dart';
@@ -11,6 +13,7 @@ import 'package:antry_admin/pages/visitor_fragment.dart';
 import 'package:antry_admin/pages/visitorlogs_fragment.dart';
 import 'package:antry_admin/res/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -44,17 +47,20 @@ class _HomePageState extends State<HomePage> {
   bool isAdmin = false;
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AdminLoginProvider>(context);
+    Admin admin = provider.getAdminObj;
     return Scaffold(
-      appBar: navigationBar(isadmin: isAdmin),
+      appBar:
+          navigationBar(isSuperAdmin: admin.superadmin!, name: admin.fullname!),
       body: Row(
         children: [
           Container(
             width: 200,
             padding: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(color: Colors.white),
-            child: isAdmin
-                ? AdminSideNavItems(
-                    tabs: adminTabs,
+            child: admin.superadmin!
+                ? SAdminSideNavItems(
+                    tabs: superAdminTabs,
                     selectedIndex: _selectedIndex,
                     onTabSelected: (index) {
                       setState(() {
@@ -62,8 +68,8 @@ class _HomePageState extends State<HomePage> {
                       });
                     },
                   )
-                : SAdminSideNavItems(
-                    tabs: superAdminTabs,
+                : AdminSideNavItems(
+                    tabs: adminTabs,
                     selectedIndex: _selectedIndex,
                     onTabSelected: (index) {
                       setState(() {

@@ -54,6 +54,13 @@ abstract class ApiClient {
   @POST("/api/auth/admin/register")
   Future<String> addAdminApi(@Body() Map<String, dynamic> body);
 
+  //ADMIN AUTH
+  @POST("/api/auth/admin/login")
+  Future<String> loginAdminApi(@Body() Map<String, dynamic> requestBody);
+
+  @GET("/api/auth/admin/decode")
+  Future<String> decryptTokenApi(@Header("x-auth-admin") String token);
+
   //ROOM API
   //.
   @GET("/api/room")
