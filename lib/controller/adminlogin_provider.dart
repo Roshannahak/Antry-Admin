@@ -29,6 +29,7 @@ class AdminLoginProvider extends ChangeNotifier {
       var response = await ApiClient.getServices().loginAdminApi(requestBody);
       Map<String, dynamic> jsontomap = jsonDecode(response);
       String token = jsontomap["token"];
+      _token = token;
       _admin = await decryptToken(token);
       _isLoad = false;
       Navigator.pushNamedAndRemoveUntil(

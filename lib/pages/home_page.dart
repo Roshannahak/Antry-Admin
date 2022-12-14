@@ -12,6 +12,7 @@ import 'package:antry_admin/pages/super%20admin/rooms_fragment.dart';
 import 'package:antry_admin/pages/visitor_fragment.dart';
 import 'package:antry_admin/pages/visitorlogs_fragment.dart';
 import 'package:antry_admin/res/strings.dart';
+import 'package:antry_admin/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,8 +44,18 @@ class _HomePageState extends State<HomePage> {
     RoomsFragment(),
     ProfileFragment(),
   ];
+  @override
+  void initState() {
+    checkTokenValidation();
+    super.initState();
+  }
 
-  bool isAdmin = false;
+  checkTokenValidation() {
+    final token =
+        Provider.of<AdminLoginProvider>(context, listen: false).getToken;
+    if (token.isEmpty) Navigator.pushNamed(context, RoutePath.login);
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AdminLoginProvider>(context);
@@ -82,9 +93,9 @@ class _HomePageState extends State<HomePage> {
               flex: 9,
               child: Container(
                   padding: EdgeInsets.only(left: 30, right: 30, top: 20),
-                  child: isAdmin
-                      ? adminFragment[_selectedIndex]
-                      : superAdminFragment[_selectedIndex]))
+                  child: admin.superadmin!
+                      ? superAdminFragment[_selectedIndex]
+                      : adminFragment[_selectedIndex]))
         ],
       ),
     );
