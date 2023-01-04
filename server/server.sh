@@ -1,3 +1,5 @@
+#!/bin/sh
+
 #set port
 PORT=3232
 
@@ -6,8 +8,7 @@ echo 'preparing port' $PORT
 fuser -k 3232/tcp
 
 #switch directories
-cd ..
-cd build/web/
+cd ./build/web/
 
 #start the server
 echo 'server starting on port '$PORT
